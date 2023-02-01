@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    width: 100%;
+    height: 89px;
+    background-color: #404EED;
+    display: flex;
+    justify-content: space-between; /* os elementos continuam colados */
+}
+
+.header div {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 80px;
+}
+
+.header p {
+    font-family: 'New Rocker', cursive;
+    font-size: 32px;
+    color: #FCFCFC;
+}
+
+.container-principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-esquerdo {
+    width: 50%;
+    height: 785px;
+    background-color: #F2F2F2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.confeccao-camisa {
+    width: 400px;
+    height: 706px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.confeccao-camisa .secao-modelo .opcoes {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.confeccao-camisa .secao-gola .opcoes {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.confeccao-camisa .secao-tecido .opcoes {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.confeccao-camisa .titulo {
+    font-size: 18px;
+    line-height: 21px;
+    color: #232323;
+    margin-bottom: 8px;
+}
+
+.confeccao-camisa .opcao .imagem {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color:#E5E5E5;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confeccao-camisa .opcao .imagem img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color:#E5E5E5;
+    
+}
+
+.confeccao-camisa .secao-modelo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.confeccao-camisa .secao-gola {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.confeccao-camisa .secao-tecido {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.confeccao-camisa .secao-modelo .opcoes .opcao.selecionado {
+    border: 3px solid #404EED;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%
+}
+
+.confeccao-camisa .secao-gola .opcoes .opcao.selecionado {
+    border: 3px solid #404EED;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+} 
+
+.confeccao-camisa .secao-tecido .opcoes .opcao.selecionado {
+    border: 3px solid #404EED;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+} 
+
+.secao-modelo,
+.secao-gola,
+.secao-tecido {
+    margin-bottom: 32px;
+}
+
+.footer .titulo {
+    font-size: 18px;
+    line-height: 21px;
+    color: #232323;
+    margin-bottom: 8px;
+}
+
+.footer .input input {
+    width: 396px;
+    height: 40px;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+}
+
+/* não alinhou nem coloriu texto dentro do input */
+footer .input input::placeholder {
+    color:#818181;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.footer .botao button {
+    width: 396px;
+    height: 40px;
+    background-color: #c4c4c4;
+    border-radius: 10px;
+    margin-top: 24px;
+}
+
+.container-direito {
+    width: 50%;
+    height: 785px;
+    background-color: #404EED;
+}
+
+.container-direito div {
+    width: 200px;
+    height: 700px;
+   /*  display: flex;
+    justify-content: center;
+    align-items: center;      /* não centraliza imagem */
+}  
+
+/* .container-direito img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.container-secundario {
+    width: 100%;
+    height: 342px;
+    background-color: #E5E5E5;
+}
+
+.container-secundario div {
+    display: flex;
+    align-items: center;  /* padding-left só funciona em p qdo aciona o display */
+} /* portanto, é melhor colocar a tag p dentro de uma div */
+
+.container-secundario p {
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: #232323;
+    padding-top: 30px;
+    padding-left: 122px;
+}
+
+.container-secundario .ultimos-pedidos {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-secundario .ultimo-pedido {
+    width: 201px;
+    height: 236px;
+    margin-left: 122px;
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-secundario .ultimo-pedido .foto-camisa {
+    width: 180px;
+    height: 180px;
+}
+
+.container-secundario .ultimo-pedido .titulo-criador {
+    width: 130px;
+    height: 23px;
+   /*  font-weight: 700;
+    font-size: 20px;
+    line-height: 23px; */
+    color: #232323;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

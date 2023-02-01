@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Fashion Driven</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=New+Rocker&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+<body>
+    
+    <div class="header">
+        <div>
+            <span>LOGO</span>
+            <p>FashionDriven</p>
+        </div>
+    </div>
+
+    <div class="container-principal">
+        <div class="container-esquerdo">
+            <div class="confeccao-camisa">
+                <div class="secao-modelo">
+                    <div class="titulo">Escolha o modelo</div>
+                    <div class="opcoes modelo-camisa">
+                        <div class="opcao modelo-Tshirt" onclick="selecionaModeloCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/tshirt.png" />
+                            </div>
+                            <div class="titulo">T-shirt</div>
+                        </div>
+                        <div class="opcao modelo-camiseta" onclick="selecionaModeloCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/Camiseta.png" />
+                            </div>
+                            <div class="titulo">Camiseta</div>
+                        </div>
+                        <div class="opcao modelo-mangaLonga" onclick="selecionaModeloCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/Mangalonga.png" />
+                            </div>
+                            <div class="titulo">Manga Longa</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="secao-gola">
+                    <div class="titulo">Escolha a gola</div>
+                    <div class="opcoes gola-camisa">
+                        <div class="opcao gola-v" onclick="selecionaGolaCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/GolaV.png" />
+                            </div>
+                            <div class="titulo">Gola V</div>
+                        </div>
+                        <div class="opcao gola-redonda" onclick="selecionaGolaCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/GolaRedonda.png" />
+                            </div>
+                            <div class="titulo">Gola Redonda</div>
+                        </div>
+                        <div class="opcao gola-polo" onclick="selecionaGolaCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/GolaPolo.png" />
+                            </div>
+                            <div class="titulo">Gola Polo</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="secao-tecido">
+                    <div class="titulo">Escolha o tecido</div>
+                    <div class="opcoes tecido-camisa">
+                        <div class="opcao tecido-seda" onclick="selecionaTecidoCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/Seda.png" />
+                            </div>
+                            <div class="titulo">Seda</div>
+                        </div>
+                        <div class="opcao tecido-algodao" onclick="selecionaTecidoCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/Algodão.png" />
+                            </div>
+                            <div class="titulo">Algodão</div>
+                        </div>
+                        <div class="opcao tecido-poliester" onclick="selecionaTecidoCamisa(this)">
+                            <div class="imagem">
+                                <img src="./assets/images/Poliester.png" />
+                            </div>
+                            <div class="titulo">Poliéster</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="titulo">Imagem de referência</div>
+                <div class="input">
+                    <input type="text" name="url" placeholder="Insira o link" />
+                </div>
+                <div class="botao">
+                    <button>Confirmar pedido</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-direito">
+            <div>
+                <img src="./assets/images/ilustração.png" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-secundario">
+        <div>
+            <p>Últimos pedidos</p>
+        </div>
+        <div class="ultimos-pedidos">
+            <div class="ultimo-pedido">
+                <div class="foto-camisa">
+                    <img src="./assets/images/Blusa1.png" />
+                </div>
+                <div class="titulo-criador">Criador: Agata</div>
+            </div>
+            <div class="ultimo-pedido">
+                <div class="foto-camisa">
+                    <img src="./assets/images/Blusa2.png" />
+                </div>
+                <div class="titulo-criador">Criador: Bruna</div>
+            </div>
+            <div class="ultimo-pedido">
+                <div class="foto-camisa">
+                    <img src="./assets/images/Blusa3.png" />
+                </div>
+                <div class="titulo-criador">Criador: Camila</div>
+            </div>
+            <div class="ultimo-pedido">
+                <div class="foto-camisa">
+                    <img src="./assets/images/Blusa4.png" />
+                </div>
+                <div class="titulo-criador">Criador: Daniel</div>
+            </div>
+            <div class="ultimo-pedido">
+                <div class="foto-camisa">
+                    <img src="./assets/images/Blusa5.png" />
+                </div>
+                <div class="titulo-criador">Criador: Ester</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
