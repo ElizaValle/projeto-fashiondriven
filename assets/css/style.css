@@ -19,7 +19,7 @@ body {
 }
 
 .header div img {
-    margin-left: 130px;
+    margin-left: 80px;
 }
 
 .container-principal {
@@ -184,8 +184,7 @@ body {
     margin-top: 23px;   
 }
 
-/* não formatou texto do botão */
-.footer .botao button::placeholder {
+.footer .botao button {
     font-size: 20px;
     line-height: 23px;
     color: #FCFCFC;
@@ -229,14 +228,17 @@ body {
     padding-left: 122px;
 }
 
-/* .container-secundario .ultimos-pedidos {
-    
+.container-secundario .ultimos-pedidos {
+    width: 1250px;
+    margin-left: 122px;
+    /* margin-right: 16px; */
+    justify-content: space-between;
 }
- */
+
 .container-secundario .ultimo-pedido {
     width: 201px;
     height: 236px;
-    margin-left: 122px;
+    margin-right: 16px;
     margin-top: 15px;
     background-color: #fff;
     border-radius: 10px;
@@ -244,6 +246,15 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+/* .container-secundario .ultimo-pedido:first-child {
+    margin-left: 122px;
+    margin-right: 16px;
+} */
+
+.container-secundario .ultimo-pedido .titulo-criador span {
+    font-weight: bold;
 }
 
 .container-secundario .ultimo-pedido .foto-camisa {
@@ -254,9 +265,7 @@ body {
 .container-secundario .ultimo-pedido .titulo-criador {
     width: 130px;
     height: 23px;
-   /*  font-weight: 700;
-    font-size: 20px;
-    line-height: 23px; */
+    font-size: 18px;
     color: #232323;
     display: flex;
     justify-content: center;

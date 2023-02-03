@@ -1,30 +1,104 @@
 let tModeloCamisa, tGola, tTecido;
 
-let nomeUsuario;
+let owner = prompt('Digite seu nome');
+let author;
 
-function iniciar() {
-    nomeUsuario = prompt("Qual o seu nome?");
+let listaCamisas = [];
 
-    while(nomeUsuario === '' || nomeUsuario === null) {
-        nomeUsuario = prompt("Qual o seu nome?");
-    }
+let data = {
+    "model": "t-shirt" | "top-tank" | "long",
+    "neck": "v-neck" | "round" | "polo",
+    "material": "silk" | "cotton" | "polyester",
+    "image": string no formato de url,
+    "owner": string,
+    "author": string
+};
 
-    axios.post('https://mock-api.driven.com.br/api/v4/shirts-api/shirts', {name:nomeUsuario});
+let image = document.getElementById('url').value;
+
+let input = document.querySelector('input');
+input.addEventListener('keydown', habilitarBotao);
+
+// Função para encomendar uma blusa da lista
+
+
+
+function confirmarPedido() {
+    const promise = axios.post(
+        'https://mock-api.driven.com.br/api/v4/shirts-api/shirts', data
+        /* tModeloCamisa,
+        tGola,
+        tTecido,
+        image,
+        owner,
+        author */
+        );
+    promise.then(resposta => {
+        if(resposta.data === 201) {
+            // Exibe um alerta de sucesso
+            console.log(resposta.data);
+            alert("Sua encomenda foi confirmada!");
+
+            // adiciona a nova blusa à lista de últimos pedidos
+            for(let i = 0; i < listaCamisas.length; i++) {
+
+                const ultimosPedidos = document.querySelector('.ultimos-pedidos');
+
+                ultimosPedidos.innerHTML = '';
+
+                let template = `
+                    <li class="ultimo-pedido">
+                        <div class="foto-camisa">
+                            <img src="${listaCamisas.image}" />
+                        </div>
+                        <div class="titulo-criador"><span>Criador:</span> &nbsp ${listaCamisas.author}</div>
+                    </li>
+                `;
+
+                ultimosPedidos.innerHTML += template;
+                
+                //adiciona no início da lista
+                /* const ultimoPedidoFeito = document.querySelector('.ultimos-pedidos li:first-child'); */
+                listaCamisas.insertBefore(ultimosPedidos, listaCamisas.firstChild);
+            } 
+        }
+    })
+    .catch(error => {
+        if(error.resposta.status === 422) {
+            console.log('Erro na requisição: ' + error.resposta.data);
+            alert('Ops, não conseguimos processar sua encomenda.');
+            window.location.reload(true);
+        } 
+    });
 }
-iniciar();
+
+function alertFunc() {
+    alert('Encomenda confirmada!')
+}
+
+function timeoutFunc () {
+    timeout = () => setTimeout(alertFunc, 500);
+}
 
 function habilitarBotao() {
+    console.log(tModeloCamisa);
+    console.log(tGola);
+    console.log(tTecido);
     //verificar se modelo camisa foi selecionado
     //verificar se gola foi selecionada
     //verificar se tecido foi selecionado
     if(tModeloCamisa !== undefined && tGola!== undefined && tTecido !== undefined) {
         //verificar se input está vazio
-        const url = document.getElementById('url').value;
-        if(url.value === '') {
+        const url = document.getElementById('url');
+        if(url.value !== '') {
             const botao = document.querySelector('.confirmar-pedido');
             botao.classList.add('ativo');
+            botao.removeAttribute('disabled');
+
+            alertFunc();
+            confirmarPedido();
         }
-    }             
+    }
 }
 
 function selecionaModeloCamisa(modeloCamisaSelecionado) {
@@ -66,5 +140,3 @@ function selecionaTecidoCamisa(tecidoCamisaSelecionado) {
 
     habilitarBotao();
 }
-
-
