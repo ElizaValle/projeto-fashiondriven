@@ -5,7 +5,7 @@ let author;
 
 let listaCamisas = [];
 
-let image = document.getElementById('url').value;
+const image = document.getElementById('url').value;
 
 const infoCamisa = {
     "model": tModeloCamisa,
@@ -15,6 +15,7 @@ const infoCamisa = {
     "owner": owner,
     "author": "Nome do author da camisa"
 };
+console.log(infoCamisa);
 
 let input = document.querySelector('input');
 input.addEventListener('keydown', habilitarBotao);
@@ -33,9 +34,9 @@ function renderizaCamisa() {
         let template = `
             <li class="ultimo-pedido">
                 <div class="foto-camisa">
-                    <img src="${listaCamisas.image}" />
+                    <img src="${infoCamisa.image}" />
                 </div>
-                <div class="titulo-criador"><span>Criador:</span> &nbsp ${listaCamisas.author}</div>
+                <div class="titulo-criador"><span>Criador:</span> &nbsp ${infoCamisa.author}</div>
             </li>
         `;
 
@@ -66,6 +67,14 @@ function buscaInfoCamisa() {
 }
 
 function confirmarPedido() {
+
+    infoCamisa.model = tModeloCamisa;
+    infoCamisa.neck = tGola;
+    infoCamisa.material = tTecido;
+    infoCamisa.image = image;
+    infoCamisa.owner = owner;
+    infoCamisa.author = author;
+
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/shirts-api/shirts', infoCamisa);
     promise.then(resposta => {
         if(resposta.data === 201) {
