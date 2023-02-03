@@ -1,19 +1,21 @@
 let tModeloCamisa, tGola, tTecido;
 
-let owner = prompt('Digite seu nome');
-let author;
+let nomeUsuario = prompt('Digite seu nome');
+
+let author = nomeUsuario;
+let owner = nomeUsuario;
 
 let listaCamisas = [];
 
 const image = document.getElementById('url').value;
 
-const infoCamisa = {
-    "model": tModeloCamisa,
-    "neck": tGola,
-    "material": tTecido,
+let infoCamisa = {
+    "model": tModeloCamisa | tModeloCamisa | tModeloCamisa,
+    "neck": tGola | tGola | tGola,
+    "material": tTecido | tTecido | tTecido,
     "image": image,
     "owner": owner,
-    "author": "Nome do author da camisa"
+    "author": author
 };
 console.log(infoCamisa);
 
@@ -23,7 +25,7 @@ input.addEventListener('keydown', habilitarBotao);
 // Função para encomendar uma blusa da lista
 
 
-function renderizaCamisa() {
+/* function renderizaCamisa() {
     // adiciona a nova blusa à lista de últimos pedidos
     for(let i = 0; i < listaCamisas.length; i++) {
 
@@ -44,12 +46,12 @@ function renderizaCamisa() {
         
         //adiciona no início da lista
         /* const ultimoPedidoFeito = document.querySelector('.ultimos-pedidos li:first-child'); */
-        listaCamisas.insertBefore(ultimosPedidos, listaCamisas.firstChild);
-    } 
-    return template;
-}
+        //listaCamisas.insertBefore(ultimosPedidos, listaCamisas.firstChild);
+    //} 
+    //return template;
+//} */
 
-function sucessoAoBuscarInfoCamisa(resposta) {
+/* function sucessoAoBuscarInfoCamisa(resposta) {
     console.log(resposta);
 
     renderizaCamisa();
@@ -64,6 +66,37 @@ function buscaInfoCamisa() {
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/shirts-api/shirts');
     promise.then(sucessoAoBuscarInfoCamisa);
     promise.catch(erroAoBuscarInfoCamisa);
+} */
+
+
+function buscaInfoCamisa() {
+    const ultimosPedidos = document.querySelector('.ultimo-pedido');
+
+    ultimosPedidos.innerHTML = '';
+
+    const promise = axios.get('https://mock-api.driven.com.br/api/v4/shirts-api/shirts');
+    promise.then(resposta => {
+        console.log(resposta);
+
+        let template = `
+            <li class="ultimo-pedido">
+                <div class="foto-camisa">
+                    <img src="${resposta.data.image}" />
+                </div>
+            <div class="titulo-criador"><span>Criador:</span> &nbsp ${resposta.data.owner}</div>
+            </li>
+        `;
+
+        ultimosPedidos.innerHTML += template;
+
+        //adiciona no início da lista
+        /* const ultimoPedidoFeito = document.querySelector('.ultimos-pedidos li:first-child'); */
+        listaCamisas.insertBefore(ultimosPedidos, listaCamisas.firstChild);
+        
+        })
+    .catch(error => {
+        console.log(error);
+    });
 }
 
 function confirmarPedido() {
@@ -82,7 +115,7 @@ function confirmarPedido() {
             console.log(resposta.data);
             alert("Sua encomenda foi confirmada!");
 
-            renderizaCamisa();
+            buscaInfoCamisa();
         }
     })
     .catch(error => {
