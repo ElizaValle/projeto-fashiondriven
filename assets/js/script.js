@@ -5,16 +5,16 @@ let author;
 
 let listaCamisas = [];
 
-let data = {
-    "model": "t-shirt" | "top-tank" | "long",
-    "neck": "v-neck" | "round" | "polo",
-    "material": "silk" | "cotton" | "polyester",
-    "image": string no formato de url,
-    "owner": string,
-    "author": string
-};
-
 let image = document.getElementById('url').value;
+
+const infoCamisa = {
+    "model": tModeloCamisa,
+    "neck": tGola,
+    "material": tTecido,
+    "image": image,
+    "owner": owner,
+    "author": "Nome do author da camisa"
+};
 
 let input = document.querySelector('input');
 input.addEventListener('keydown', habilitarBotao);
@@ -22,49 +22,62 @@ input.addEventListener('keydown', habilitarBotao);
 // Função para encomendar uma blusa da lista
 
 
+function renderizaCamisa() {
+    // adiciona a nova blusa à lista de últimos pedidos
+    for(let i = 0; i < listaCamisas.length; i++) {
+
+        const ultimosPedidos = document.querySelector('.ultimos-pedidos');
+
+        ultimosPedidos.innerHTML = '';
+
+        let template = `
+            <li class="ultimo-pedido">
+                <div class="foto-camisa">
+                    <img src="${listaCamisas.image}" />
+                </div>
+                <div class="titulo-criador"><span>Criador:</span> &nbsp ${listaCamisas.author}</div>
+            </li>
+        `;
+
+        ultimosPedidos.innerHTML += template;
+        
+        //adiciona no início da lista
+        /* const ultimoPedidoFeito = document.querySelector('.ultimos-pedidos li:first-child'); */
+        listaCamisas.insertBefore(ultimosPedidos, listaCamisas.firstChild);
+    } 
+    return template;
+}
+
+function sucessoAoBuscarInfoCamisa(resposta) {
+    console.log(resposta);
+
+    renderizaCamisa();
+}
+
+function erroAoBuscarInfoCamisa(error) {
+    console.log('Erro ao buscar informações da camisa');
+    //alert();
+}
+
+function buscaInfoCamisa() {
+    const promise = axios.get('https://mock-api.driven.com.br/api/v4/shirts-api/shirts');
+    promise.then(sucessoAoBuscarInfoCamisa);
+    promise.catch(erroAoBuscarInfoCamisa);
+}
 
 function confirmarPedido() {
-    const promise = axios.post(
-        'https://mock-api.driven.com.br/api/v4/shirts-api/shirts', data
-        /* tModeloCamisa,
-        tGola,
-        tTecido,
-        image,
-        owner,
-        author */
-        );
+    const promise = axios.post('https://mock-api.driven.com.br/api/v4/shirts-api/shirts', infoCamisa);
     promise.then(resposta => {
         if(resposta.data === 201) {
             // Exibe um alerta de sucesso
             console.log(resposta.data);
             alert("Sua encomenda foi confirmada!");
 
-            // adiciona a nova blusa à lista de últimos pedidos
-            for(let i = 0; i < listaCamisas.length; i++) {
-
-                const ultimosPedidos = document.querySelector('.ultimos-pedidos');
-
-                ultimosPedidos.innerHTML = '';
-
-                let template = `
-                    <li class="ultimo-pedido">
-                        <div class="foto-camisa">
-                            <img src="${listaCamisas.image}" />
-                        </div>
-                        <div class="titulo-criador"><span>Criador:</span> &nbsp ${listaCamisas.author}</div>
-                    </li>
-                `;
-
-                ultimosPedidos.innerHTML += template;
-                
-                //adiciona no início da lista
-                /* const ultimoPedidoFeito = document.querySelector('.ultimos-pedidos li:first-child'); */
-                listaCamisas.insertBefore(ultimosPedidos, listaCamisas.firstChild);
-            } 
+            renderizaCamisa();
         }
     })
     .catch(error => {
-        if(error.resposta.status === 422) {
+        if(error.resposta === 422) {
             console.log('Erro na requisição: ' + error.resposta.data);
             alert('Ops, não conseguimos processar sua encomenda.');
             window.location.reload(true);

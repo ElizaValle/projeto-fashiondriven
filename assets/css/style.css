@@ -232,6 +232,7 @@ body {
     width: 1250px;
     margin-left: 122px;
     /* margin-right: 16px; */
+    display: flex;
     justify-content: space-between;
 }
 
