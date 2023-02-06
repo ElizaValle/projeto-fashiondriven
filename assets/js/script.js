@@ -1,148 +1,101 @@
 let tModeloCamisa, tGola, tTecido;
 
-let nomeUsuario = prompt('Digite seu nome');
+let userName = prompt('Digite seu nome');
 
-let author = nomeUsuario;
-let owner = nomeUsuario;
+let author = userName;
+let owner = userName;
 
-let listaCamisas = [];
+let shirt;
+let recentShirts = [];
 
-const image = document.getElementById('url').value;
-
-let infoCamisa = {
-    "model": tModeloCamisa | tModeloCamisa | tModeloCamisa,
-    "neck": tGola | tGola | tGola,
-    "material": tTecido | tTecido | tTecido,
-    "image": image,
-    "owner": owner,
-    "author": author
-};
-console.log(infoCamisa);
+let url = document.querySelector('#url').value;
+console.log(typeof(url));
 
 let input = document.querySelector('input');
-input.addEventListener('keydown', habilitarBotao);
+input.addEventListener('keydown', enableButton);
 
-// Função para encomendar uma blusa da lista
+//rendeiza página adicionando nova blusa
+function updateRecentShirtsList() {
+    let recentShirts = document.querySelector('.ultimos-pedidos');
 
+    let recentShirstsHTML = '';
 
-/* function renderizaCamisa() {
-    // adiciona a nova blusa à lista de últimos pedidos
-    for(let i = 0; i < listaCamisas.length; i++) {
-
-        const ultimosPedidos = document.querySelector('.ultimos-pedidos');
-
-        ultimosPedidos.innerHTML = '';
-
+    for(let i = 0; i < recentShirts.length; i++) {
+        
         let template = `
-            <li class="ultimo-pedido">
+            <div class="ultimo-pedido">
                 <div class="foto-camisa">
-                    <img src="${infoCamisa.image}" />
+                    <img src="${shirt.image}" />
                 </div>
-                <div class="titulo-criador"><span>Criador:</span> &nbsp ${infoCamisa.author}</div>
-            </li>
+                <div class="titulo-criador"><span>Criador:</span> &nbsp ${shirt.author}</div>
+            </div>
         `;
 
-        ultimosPedidos.innerHTML += template;
-        
-        //adiciona no início da lista
-        /* const ultimoPedidoFeito = document.querySelector('.ultimos-pedidos li:first-child'); */
-        //listaCamisas.insertBefore(ultimosPedidos, listaCamisas.firstChild);
-    //} 
-    //return template;
-//} */
-
-/* function sucessoAoBuscarInfoCamisa(resposta) {
-    console.log(resposta);
-
-    renderizaCamisa();
+        recentShirstsHTML.innerHTML += template;
+    }
 }
 
-function erroAoBuscarInfoCamisa(error) {
-    console.log('Erro ao buscar informações da camisa');
-    //alert();
-}
-
-function buscaInfoCamisa() {
+// Função para buscar blusas recentes do servidor
+function getRecentShirts() {
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/shirts-api/shirts');
-    promise.then(sucessoAoBuscarInfoCamisa);
-    promise.catch(erroAoBuscarInfoCamisa);
-} */
-
-
-function buscaInfoCamisa() {
-    const ultimosPedidos = document.querySelector('.ultimo-pedido');
-
-    ultimosPedidos.innerHTML = '';
-
-    const promise = axios.get('https://mock-api.driven.com.br/api/v4/shirts-api/shirts');
-    promise.then(resposta => {
-        console.log(resposta);
-
-        let template = `
-            <li class="ultimo-pedido">
-                <div class="foto-camisa">
-                    <img src="${resposta.data.image}" />
-                </div>
-            <div class="titulo-criador"><span>Criador:</span> &nbsp ${resposta.data.owner}</div>
-            </li>
-        `;
-
-        ultimosPedidos.innerHTML += template;
-
-        //adiciona no início da lista
-        /* const ultimoPedidoFeito = document.querySelector('.ultimos-pedidos li:first-child'); */
-        listaCamisas.insertBefore(ultimosPedidos, listaCamisas.firstChild);
-        
-        })
-    .catch(error => {
-        console.log(error);
-    });
-}
-
-function confirmarPedido() {
-
-    infoCamisa.model = tModeloCamisa;
-    infoCamisa.neck = tGola;
-    infoCamisa.material = tTecido;
-    infoCamisa.image = image;
-    infoCamisa.owner = owner;
-    infoCamisa.author = author;
-
-    const promise = axios.post('https://mock-api.driven.com.br/api/v4/shirts-api/shirts', infoCamisa);
-    promise.then(resposta => {
-        if(resposta.data === 201) {
-            // Exibe um alerta de sucesso
-            console.log(resposta.data);
-            alert("Sua encomenda foi confirmada!");
-
-            buscaInfoCamisa();
+    promise.then(response => {
+        if (response.status === 200) {
+            return response;
+        } else {
+            throw new Error("Erro ao buscar blusas recentes");
         }
     })
+    .then(data => {
+        recentShirts = data;
+        updateRecentShirtsList();
+    })
     .catch(error => {
-        if(error.resposta === 422) {
-            console.log('Erro na requisição: ' + error.resposta.data);
-            alert('Ops, não conseguimos processar sua encomenda.');
-            window.location.reload(true);
-        } 
+        console.log(error)
+        alert("Ops, não conseguimos buscar as blusas recentes");
+    });
+  }
+
+//faz requisição para adicionar nova blusa ao servidor
+function sendRequest() {
+
+     let infoCamisa = {
+        model: tModeloCamisa,
+        neck: tGola,
+        material: tTecido,
+        image: url,
+        owner: owner,
+        author: author
+    };
+    console.log(infoCamisa);
+    console.log(typeof(infoCamisa)); 
+
+    const promise = axios.post('https://mock-api.driven.com.br/api/v4/shirts-api/shirts', infoCamisa);
+    promise.then(response => {
+        if(response.status === 201) {
+            return response;
+        } else {
+            throw new Error('Erro ao criar blusa');
+        }
+    })
+    .then(data => {
+        //adiciona blusa criada à lista de blusas recentes
+        recentShirts.unshift(data);
+
+        // Chama a função para buscar blusas recentes do servidor ao carregar a página
+        getRecentShirts();
+
+        //exibe alerta confirmando encomenda
+        alert('Blusa personalizada encomendada com sucesso!');
+    })
+    .catch(error => {
+        console.log(error);
+        alert('Ops, não conseguimos processar sua encomenda.');
+        window.location.reload();
     });
 }
 
-function alertFunc() {
-    alert('Encomenda confirmada!')
-}
-
-function timeoutFunc () {
-    timeout = () => setTimeout(alertFunc, 500);
-}
-
-function habilitarBotao() {
-    console.log(tModeloCamisa);
-    console.log(tGola);
-    console.log(tTecido);
-    //verificar se modelo camisa foi selecionado
-    //verificar se gola foi selecionada
-    //verificar se tecido foi selecionado
-    if(tModeloCamisa !== undefined && tGola!== undefined && tTecido !== undefined) {
+function enableButton() {
+    if(tModeloCamisa && tGola && tTecido) {
         //verificar se input está vazio
         const url = document.getElementById('url');
         if(url.value !== '') {
@@ -150,8 +103,7 @@ function habilitarBotao() {
             botao.classList.add('ativo');
             botao.removeAttribute('disabled');
 
-            alertFunc();
-            confirmarPedido();
+            sendRequest();
         }
     }
 }
@@ -163,11 +115,12 @@ function selecionaModeloCamisa(modeloCamisaSelecionado) {
     }
 
     modeloCamisaSelecionado.querySelector('.imagem').classList.add('selecionado');
+    console.log(modeloCamisaSelecionado);
 
     tModeloCamisa = modeloCamisaSelecionado.querySelector('.titulo').innerHTML;
+    console.log(tModeloCamisa);
 
-    habilitarBotao();
-    
+    enableButton(); 
 }
 
 function selecionaGolaCamisa(golaCamisaSelecionada) {
@@ -177,10 +130,12 @@ function selecionaGolaCamisa(golaCamisaSelecionada) {
     }
 
     golaCamisaSelecionada.querySelector('.imagem').classList.add('selecionado');
+    console.log(golaCamisaSelecionada);
 
     tGola = golaCamisaSelecionada.querySelector('.titulo').innerHTML;
+    console.log(tGola);
 
-    habilitarBotao();
+    enableButton();
 }
 
 function selecionaTecidoCamisa(tecidoCamisaSelecionado) {
@@ -190,8 +145,10 @@ function selecionaTecidoCamisa(tecidoCamisaSelecionado) {
     }
 
     tecidoCamisaSelecionado.querySelector('.imagem').classList.add('selecionado');
+    console.log(tecidoCamisaSelecionado);
 
     tTecido = tecidoCamisaSelecionado.querySelector('.titulo').innerHTML;
+    console.log(tTecido);
 
-    habilitarBotao();
+    enableButton();
 }
